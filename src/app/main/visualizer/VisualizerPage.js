@@ -14,7 +14,7 @@ const Root = styled(FusePageSimple)(({ theme }) => ({
   '& .FusePageSimple-sidebarContent': {},
 }));
 
-function ExplorerPage(props) {
+function VisualizerPage(props) {
 
   return (
     <Root
@@ -32,4 +32,4 @@ function ExplorerPage(props) {
   );
 }
 
-export default ExplorerPage;
+export default VisualizerPage;

@@ -9,12 +9,20 @@ i18next.addResourceBundle('ar', 'navigation', ar);
 
 const navigationConfig = [
   {
-    id: 'explorer-component',
-    title: 'Explorer',
-    translate: 'Explorer',
+    id: 'visualizer-component',
+    title: 'Visualizer',
+    // translate: 'Explorer',
     type: 'item',
     icon: 'heroicons-outline:view-grid',
-    url: 'explorer',
+    url: 'visualizer',
+  },
+  {
+    id: 'leader-board-component',
+    title: 'Leader Board',
+    // translate: 'Explorer',
+    type: 'item',
+    icon: 'heroicons-outline:chart-bar',
+    url: 'leader-board',
   },
 ];
 

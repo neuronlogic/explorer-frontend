@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-const ExplorerPage = lazy(() => import('./ExplorerPage'));
+const VisualizerPage = lazy(() => import('./VisualizerPage'));
 const ExplorerConfig = {
   settings: {
     layout: {
@@ -13,8 +13,8 @@ const ExplorerConfig = {
   },
   routes: [
     {
-      path: 'explorer',
-      element: <ExplorerPage />,
+      path: 'visualizer',
+      element: <VisualizerPage />,
     },
   ],
 };
