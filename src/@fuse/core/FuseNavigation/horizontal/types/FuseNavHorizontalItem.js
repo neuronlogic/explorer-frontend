@@ -64,7 +64,7 @@ function FuseNavHorizontalItem(props) {
         {item.badge && <FuseNavBadge className="ltr:ml-8 rtl:mr-8" badge={item.badge} />}
       </StyledListItem>
     ),
-    [item.badge, item.exact, item.icon, item.iconClass, item.title, item.url]
+    [item.badge, item.exact,item.sx, item.active, item.disabled, item.end, item.icon, item.iconClass, item.title, item.url]
   );
 }
 

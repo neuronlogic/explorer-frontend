@@ -115,7 +115,9 @@ function MinersTable() {
                     )}
                   />
                 </TableCell>
-                <TableCell className="p-4 md:p-16" align="right">{row.eval_date}</TableCell>
+                <TableCell className="p-4 md:p-16" align="right">
+                  {row.eval_date}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
