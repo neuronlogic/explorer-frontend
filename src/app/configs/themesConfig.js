@@ -1,6 +1,3 @@
-import { fuseDark, skyBlue } from '@fuse/colors';
-import { blueGrey } from '@mui/material/colors';
-
 export const lightPaletteText = {
   primary: 'rgb(17, 24, 39)',
   secondary: 'rgb(107, 114, 128)',

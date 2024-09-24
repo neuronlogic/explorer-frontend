@@ -1,10 +1,7 @@
 import { memo } from 'react';
 
 function RightSideLayout1(props) {
-  return (
-    <>
-    </>
-  );
+  return <></>;
 }
 
 export default memo(RightSideLayout1);

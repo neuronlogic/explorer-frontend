@@ -9,7 +9,7 @@ export const getMiners = createAsyncThunk('leaderBoard/getMiners', async () => {
 
 const minersAdapter = createEntityAdapter({
   // Assuming 'uid' is the unique identifier for each miner
-  selectId: (miner) => miner.uid
+  selectId: (miner) => miner.uid,
 });
 
 const minersSlice = createSlice({
@@ -39,6 +39,5 @@ export const { selectAll: selectMiners } = minersAdapter.getSelectors(
 );
 
 export const selectMinersSearchText = ({ leaderBoard }) => leaderBoard.miners.searchText;
-
 
 export default minersSlice.reducer;

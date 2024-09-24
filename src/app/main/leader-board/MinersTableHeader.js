@@ -65,12 +65,10 @@ const rows = [
 ];
 
 function MinersTableHeader(props) {
-
   const createSortHandler = (property) => (event) => {
     props.onRequestSort(event, property);
   };
 
- 
   return (
     <TableHead>
       <TableRow className="h-48 sm:h-64">

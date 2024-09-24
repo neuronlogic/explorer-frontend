@@ -1,4 +1,3 @@
-import FusePageCarded from '@fuse/core/FusePageCarded';
 import withReducer from 'app/store/withReducer';
 import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
 import reducer from './store';
@@ -9,7 +8,7 @@ function LeaderBoardPage() {
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'));
 
   return (
-    <div className='max-w-[1500px] mx-auto'>
+    <div className="max-w-[1200px] w-full mx-auto">
       <LeaderBoardHeader />
       <MinersTable />
     </div>

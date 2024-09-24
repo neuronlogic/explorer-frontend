@@ -15,7 +15,6 @@ const Root = styled(FusePageSimple)(({ theme }) => ({
 }));
 
 function VisualizerPage(props) {
-
   return (
     <Root
       content={

@@ -774,8 +774,8 @@ module.exports = {
         '"Courier New"',
         'monospace',
       ],
-      popp:["Poppins", 'sans-serif'],
-      mont:["Montserrat", 'sans-serif']
+      popp: ['Poppins', 'sans-serif'],
+      mont: ['Montserrat', 'sans-serif'],
     },
     fontSize: {
       xs: '1rem',

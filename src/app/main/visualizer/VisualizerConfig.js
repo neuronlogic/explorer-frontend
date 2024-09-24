@@ -6,8 +6,8 @@ const ExplorerConfig = {
     layout: {
       config: {
         footer: {
-          display: false
-        }
+          display: false,
+        },
       },
     },
   },

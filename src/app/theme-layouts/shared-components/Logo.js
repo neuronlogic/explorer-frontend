@@ -24,7 +24,7 @@ function Logo() {
         className="flex items-center py-4 px-8 mx-8 rounded"
         style={{ backgroundColor: '#121212', color: '#61DAFB' }}
       >
-       <p className=''>NASChain</p>
+        <p className="">NASChain</p>
       </div>
     </Root>
   );

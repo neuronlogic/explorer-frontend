@@ -7,7 +7,7 @@ const settingsConfig = {
     config: {
       footer: {
         display: false,
-      }
+      },
     }, // checkout default layout configs at app/theme-layouts for example  app/theme-layouts/layout1/Layout1Config.js
   },
   customScrollbars: true,

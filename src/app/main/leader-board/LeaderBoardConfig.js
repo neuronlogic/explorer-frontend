@@ -7,8 +7,8 @@ const LeaderBoardConfig = {
     layout: {
       config: {
         footer: {
-          display: false
-        }
+          display: false,
+        },
       },
     },
   },

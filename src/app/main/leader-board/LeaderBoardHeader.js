@@ -1,14 +1,12 @@
-
 import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import Input from '@mui/material/Input';
 import Paper from '@mui/material/Paper';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { useDispatch, useSelector } from 'react-redux';
-import { setMinersSearchText, selectMinersSearchText} from './store/minersSlice';
+import { setMinersSearchText, selectMinersSearchText } from './store/minersSlice';
 
 function LeaderBoardHeader(props) {
-
   const dispatch = useDispatch();
   const searchText = useSelector(selectMinersSearchText);
 

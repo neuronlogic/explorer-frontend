@@ -6,10 +6,7 @@ import Error404Page from '../main/404/Error404Page';
 import VisualizerConfig from '../main/visualizer/VisualizerConfig';
 import LeaderBoardConfig from '../main/leader-board/LeaderBoardConfig';
 
-const routeConfigs = [
-  VisualizerConfig,
-  LeaderBoardConfig,
-];
+const routeConfigs = [VisualizerConfig, LeaderBoardConfig];
 
 const routes = [
   ...FuseUtils.generateRoutesFromConfigs(routeConfigs, settingsConfig.defaultAuth),

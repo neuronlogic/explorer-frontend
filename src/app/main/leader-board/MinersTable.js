@@ -35,7 +35,9 @@ function MinersTable() {
 
   useEffect(() => {
     const filteredData = searchText.length
-      ? _.filter(miners, (item) => item.uid.toString().toLowerCase().includes(searchText.toLowerCase()))
+      ? _.filter(miners, (item) =>
+          item.uid.toString().toLowerCase().includes(searchText.toLowerCase())
+        )
       : miners;
     setData(filteredData);
     setPage(1); // Reset page to 1 when data changes
@@ -78,10 +80,7 @@ function MinersTable() {
     [order.direction]
   );
 
-  const displayedData = sortedData.slice(
-    (page - 1) * rowsPerPage,
-    page * rowsPerPage
-  );
+  const displayedData = sortedData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
   return (
     <div className="w-full flex flex-col p-32">
@@ -100,21 +99,13 @@ function MinersTable() {
                 role="checkbox"
                 tabIndex={-1}
                 key={row.uid}
-                onClick={() =>
-                  window.open(`https://huggingface.co/${row.hf_account}`, '_blank')
-                }
+                onClick={() => window.open(`https://huggingface.co/${row.hf_account}`, '_blank')}
               >
                 <TableCell className="p-4 md:p-16">{row.uid}</TableCell>
                 <TableCell className="p-4 md:p-16">{row.accuracy}</TableCell>
-                <TableCell className="p-4 md:p-16">
-                  {formatNumber(row.params)}
-                </TableCell>
-                <TableCell className="p-4 md:p-16">
-                  {formatNumber(row.flops)}
-                </TableCell>
-                <TableCell className="p-4 md:p-16">
-                  {row.score.toFixed(5)}
-                </TableCell>
+                <TableCell className="p-4 md:p-16">{formatNumber(row.params)}</TableCell>
+                <TableCell className="p-4 md:p-16">{formatNumber(row.flops)}</TableCell>
+                <TableCell className="p-4 md:p-16">{row.score.toFixed(5)}</TableCell>
                 <TableCell className="p-4 md:p-16">{row.block}</TableCell>
                 <TableCell className="p-4 md:p-16" align="right">
                   <i
@@ -124,7 +115,7 @@ function MinersTable() {
                     )}
                   />
                 </TableCell>
-                <TableCell className="p-4 md:p-16">{row.eval_date}</TableCell>
+                <TableCell className="p-4 md:p-16" align="right">{row.eval_date}</TableCell>
               </TableRow>
             ))}
           </TableBody>

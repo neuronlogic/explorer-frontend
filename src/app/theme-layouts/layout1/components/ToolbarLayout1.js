@@ -38,10 +38,9 @@ function ToolbarLayout1(props) {
                 </Hidden>
               </>
             )}
-
           </div>
-          <div className=''>
-            <p className='text-32 font-popp font-semibold'>NASChain Explorer</p>
+          <div className="">
+            <p className="text-32 font-popp font-semibold">NASChain Explorer</p>
           </div>
           <div className="flex items-center px-8 h-full overflow-x-auto">
             <FullScreenToggle />
