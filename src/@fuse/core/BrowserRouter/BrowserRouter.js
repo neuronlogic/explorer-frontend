@@ -10,8 +10,8 @@ function BrowserRouter({ basename, children, window }) {
 
   useLayoutEffect(() => {
     const unsubscribe = history.listen(setState);
-    return unsubscribe; 
-  }, []); 
+    return unsubscribe;
+  }, []);
 
   return (
     <Router

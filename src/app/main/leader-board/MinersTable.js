@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FuseScrollbars from '@fuse/core/FuseScrollbars';
 import FuseLoading from '@fuse/core/FuseLoading';
@@ -16,6 +16,7 @@ import formatNumber from 'src/app/utils/functions';
 import { PrevIcon, NextIcon } from 'src/assets/icons/svg';
 import { getMiners, selectMiners, selectMinersSearchText } from './store/minersSlice';
 import MinersTableHeader from './MinersTableHeader';
+import ParetoChart from './ParetoChart';
 
 function MinersTable() {
   const dispatch = useDispatch();
@@ -52,6 +53,15 @@ function MinersTable() {
     setPage(value);
   };
 
+  const simplifiedData = useMemo(() => {
+    return (data || []).map(({ uid, params, flops, accuracy }) => ({
+      uid,
+      params,
+      flops,
+      accuracy,
+    }));
+  }, [data]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full">
@@ -83,80 +93,83 @@ function MinersTable() {
   const displayedData = sortedData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
   return (
-    <div className="w-full flex flex-col p-32">
-      <FuseScrollbars className="overflow-x-auto">
-        <Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
-          <MinersTableHeader
-            order={order}
-            onRequestSort={handleRequestSort}
-            rowCount={data.length}
-          />
-          <TableBody>
-            {displayedData.map((row) => (
-              <TableRow
-                className="h-72 cursor-pointer"
-                hover
-                role="checkbox"
-                tabIndex={-1}
-                key={row.uid}
-                onClick={() => window.open(`https://huggingface.co/${row.hf_account}`, '_blank')}
-              >
-                <TableCell className="p-4 md:p-16">{row.uid}</TableCell>
-                <TableCell className="p-4 md:p-16">{row.accuracy}</TableCell>
-                <TableCell className="p-4 md:p-16">{formatNumber(row.params)}</TableCell>
-                <TableCell className="p-4 md:p-16">{formatNumber(row.flops)}</TableCell>
-                <TableCell className="p-4 md:p-16">{row.score.toFixed(5)}</TableCell>
-                <TableCell className="p-4 md:p-16">{row.block}</TableCell>
-                <TableCell className="p-4 md:p-16" align="right">
-                  <i
-                    className={clsx(
-                      'inline-block w-12 h-12 rounded-full mx-8',
-                      row.reward ? 'bg-green' : 'bg-red'
-                    )}
-                  />
-                </TableCell>
-                <TableCell className="p-4 md:p-16" align="right">
-                  {row.eval_date}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </FuseScrollbars>
+    <>
+      <ParetoChart data={simplifiedData} />
+      <div className="w-full flex flex-col p-32">
+        <FuseScrollbars className="overflow-x-auto">
+          <Table stickyHeader className="min-w-xl" aria-labelledby="tableTitle">
+            <MinersTableHeader
+              order={order}
+              onRequestSort={handleRequestSort}
+              rowCount={data.length}
+            />
+            <TableBody>
+              {displayedData.map((row) => (
+                <TableRow
+                  className="h-72 cursor-pointer"
+                  hover
+                  role="checkbox"
+                  tabIndex={-1}
+                  key={row.uid}
+                  onClick={() => window.open(`https://huggingface.co/${row.hf_account}`, '_blank')}
+                >
+                  <TableCell className="p-4 md:p-16">{row.uid}</TableCell>
+                  <TableCell className="p-4 md:p-16">{row.accuracy}</TableCell>
+                  <TableCell className="p-4 md:p-16">{formatNumber(row.params)}</TableCell>
+                  <TableCell className="p-4 md:p-16">{formatNumber(row.flops)}</TableCell>
+                  <TableCell className="p-4 md:p-16">{row.score.toFixed(5)}</TableCell>
+                  <TableCell className="p-4 md:p-16">{row.block}</TableCell>
+                  <TableCell className="p-4 md:p-16" align="right">
+                    <i
+                      className={clsx(
+                        'inline-block w-12 h-12 rounded-full mx-8',
+                        row.reward ? 'bg-green' : 'bg-red'
+                      )}
+                    />
+                  </TableCell>
+                  <TableCell className="p-4 md:p-16" align="right">
+                    {row.eval_date}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </FuseScrollbars>
 
-      <Pagination
-        count={pageCount}
-        page={page}
-        onChange={handlePageChange}
-        variant="outlined"
-        shape="rounded"
-        sx={{
-          mt: 2,
-          justifyContent: 'center',
-          display: 'flex',
-          '& .MuiPaginationItem-root': {
-            color: '#808B9B',
-            border: 'none',
-          },
-          '& .MuiPaginationItem-root.Mui-selected': {
-            backgroundColor: '#61F0FE',
-            color: '#101820',
-            '&:hover': {
-              backgroundColor: '#03C1DB',
+        <Pagination
+          count={pageCount}
+          page={page}
+          onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
+          sx={{
+            mt: 2,
+            justifyContent: 'center',
+            display: 'flex',
+            '& .MuiPaginationItem-root': {
+              color: '#808B9B',
+              border: 'none',
             },
-          },
-        }}
-        renderItem={(item) => (
-          <PaginationItem
-            {...item}
-            components={{
-              previous: PrevIcon,
-              next: NextIcon,
-            }}
-          />
-        )}
-      />
-    </div>
+            '& .MuiPaginationItem-root.Mui-selected': {
+              backgroundColor: '#61F0FE',
+              color: '#101820',
+              '&:hover': {
+                backgroundColor: '#03C1DB',
+              },
+            },
+          }}
+          renderItem={(item) => (
+            <PaginationItem
+              {...item}
+              components={{
+                previous: PrevIcon,
+                next: NextIcon,
+              }}
+            />
+          )}
+        />
+      </div>
+    </>
   );
 }
 
