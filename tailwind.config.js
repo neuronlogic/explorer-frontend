@@ -8,16 +8,19 @@ module.exports = {
   darkMode: 'class', // or 'class'
   theme: {
     screens: {
-      sm: '600px',
-      md: '960px',
+      xs: '375px',
+      sm: '768px',
+      md: '1024px',
       lg: '1280px',
-      xl: '1920px',
+      xl: '1560px',
       print: { raw: 'print' },
     },
     colors: ({ colors }) => ({
       inherit: colors.inherit,
       current: colors.current,
       transparent: 'transparent',
+      primary: '#1e293b',
+      'primary-light': '#2f394a',
       black: '#22292F',
       white: '#fff',
       grey: {

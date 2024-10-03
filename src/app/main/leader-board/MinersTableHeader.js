@@ -3,7 +3,8 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Tooltip from '@mui/material/Tooltip';
 import TableHead from '@mui/material/TableHead';
-import { lighten } from '@mui/material/styles';
+import { lighten, useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const rows = [
   {
@@ -65,6 +66,10 @@ const rows = [
 ];
 
 function MinersTableHeader(props) {
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   const createSortHandler = (property) => (event) => {
     props.onRequestSort(event, property);
   };
@@ -73,13 +78,15 @@ function MinersTableHeader(props) {
     <TableHead>
       <TableRow className="h-48 sm:h-64">
         {rows.map((row) => {
-          return (
+          return isMobile ? (
+            <></>
+          ) : (
             <TableCell
               sx={{
-                backgroundColor: (theme) =>
-                  theme.palette.mode === 'light'
-                    ? lighten(theme.palette.background.default, 0.4)
-                    : lighten(theme.palette.background.default, 0.02),
+                backgroundColor: (currentTheme) =>
+                  currentTheme.palette.mode === 'light'
+                    ? lighten(currentTheme.palette.background.default, 0.4)
+                    : lighten(currentTheme.palette.background.default, 0.02),
               }}
               className="p-4 md:p-16"
               key={row.id}

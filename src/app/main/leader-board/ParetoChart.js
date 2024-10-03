@@ -10,13 +10,27 @@ export default function ParetoChart(props) {
         height={300}
         series={[
           {
-            data: (data || []).map((v) => ({
-              x: v.params,
-              y: v.accuracy,
-              id: v.uid,
-            })),
+            data: (data || [])
+              .filter((v) => v.pareto)
+              .map((v) => ({
+                x: v.params,
+                y: v.accuracy,
+                id: v.uid,
+              })),
             valueFormatter: ({ x, y, id }) => `${id} (${formatNumber(x)}, ${y}%)`,
-            label: 'Params vs Accuracy',
+            markerSize: 2,
+          },
+          {
+            data: (data || [])
+              .filter((v) => !v.pareto)
+              .map((v) => ({
+                x: v.params,
+                y: v.accuracy,
+                id: v.uid,
+              })),
+            valueFormatter: ({ x, y, id }) => `${id} (${formatNumber(x)}, ${y}%)`,
+            color: 'red',
+            markerSize: 2,
           },
         ]}
       />
@@ -24,13 +38,27 @@ export default function ParetoChart(props) {
         height={300}
         series={[
           {
-            data: (data || []).map((v) => ({
-              x: v.flops,
-              y: v.accuracy,
-              id: v.uid,
-            })),
+            data: (data || [])
+              .filter((v) => v.pareto)
+              .map((v) => ({
+                x: v.flops,
+                y: v.accuracy,
+                id: v.uid,
+              })),
             valueFormatter: ({ x, y, id }) => `${id} (${formatNumber(x)}, ${y}%)`,
-            label: 'Flops vs Accuracy',
+            markerSize: 2,
+          },
+          {
+            data: (data || [])
+              .filter((v) => !v.pareto)
+              .map((v) => ({
+                x: v.flops,
+                y: v.accuracy,
+                id: v.uid,
+              })),
+            valueFormatter: ({ x, y, id }) => `${id} (${formatNumber(x)}, ${y}%)`,
+            color: 'red',
+            markerSize: 2,
           },
         ]}
       />
