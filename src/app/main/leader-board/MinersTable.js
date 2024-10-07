@@ -110,9 +110,15 @@ function MinersTable() {
         <FuseScrollbars className="overflow-x-auto">
           {isMobile ? (
             <>
+              <MinersTableHeader
+                order={order}
+                onRequestSort={handleRequestSort}
+                rowCount={data.length}
+              />
               <div className="flex flex-col gap-8">
                 {(displayedData || []).map((item) => (
-                  <CardItem className="">
+                  <CardItem className=""
+                    key={item.uid}>
                     <div className="flex justify-between items-center">
                       <Typography className="bg-primary-light inline-block w-60 text-center py-2 text-lg rounded-full">
                         {item.uid}
@@ -173,7 +179,7 @@ function MinersTable() {
                 rowCount={data.length}
               />
               <TableBody>
-                {displayedData.map((row) => (
+                {(displayedData || []).map((row) => (
                   <TableRow
                     className="h-72 cursor-pointer"
                     hover
@@ -196,7 +202,7 @@ function MinersTable() {
                       <i
                         className={clsx(
                           'inline-block w-12 h-12 rounded-full mx-8',
-                          row.reward ? 'bg-green' : 'bg-red'
+                          row.pareto ? 'bg-green' : 'bg-red'
                         )}
                       />
                     </TableCell>
