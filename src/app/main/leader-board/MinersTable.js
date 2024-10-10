@@ -19,7 +19,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import CardItem from 'src/app/components/ui/CardItem';
 import { getMiners, selectMiners, selectMinersSearchText } from './store/minersSlice';
 import MinersTableHeader from './MinersTableHeader';
-import ParetoChart from './ParetoChart';
+import Pareto3dChart from './Pareto3dChart';
 
 function MinersTable() {
   const theme = useTheme();
@@ -63,15 +63,15 @@ function MinersTable() {
   const siblingCount = isMediumScreen ? 0 : 1;
   const boundaryCount = isSmallScreen ? 0 : 1;
 
-  const simplifiedData = useMemo(() => {
-    return (data || []).map(({ uid, params, flops, pareto, accuracy }) => ({
-      uid,
-      params,
-      flops,
-      pareto,
-      accuracy,
-    }));
-  }, [data]);
+  const simplifiedData = useMemo(() => (
+    {
+      x: data.map(item => item.params),
+      y: data.map(item => item.flops),
+      z: data.map(item => item.accuracy),
+      color: data.map(item => item.pareto ? 'green' : 'red'),
+      uid: data.map(item => item.uid),
+    }
+  ), [data])
 
   if (loading) {
     return (
@@ -105,7 +105,9 @@ function MinersTable() {
 
   return (
     <>
-      <ParetoChart data={simplifiedData} />
+      <div className='flex justify-center'>
+        <Pareto3dChart data={simplifiedData} />
+      </div>
       <div className="w-full flex flex-col p-16 md:p-32">
         <FuseScrollbars className="overflow-x-auto">
           {isMobile ? (

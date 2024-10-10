@@ -9,7 +9,7 @@ import {
   MenuItem,
   Typography,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
 } from '@mui/material';
 import { lighten } from '@mui/material/styles';
 import { ArrowIcon } from 'src/assets/icons/svg';
@@ -63,7 +63,7 @@ function MinersTableHeader({ order, onRequestSort }) {
 
   if (isMobile) {
     return (
-      <div className='flex justify-end mb-10'>
+      <div className="flex justify-end mb-10">
         <Select
           value={option}
           onChange={handleChange}
