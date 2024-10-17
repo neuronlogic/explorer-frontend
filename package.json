@@ -111,6 +111,7 @@
     "scripts": {
         "start": "PORT=8082 react-app-rewired  start",
         "build": "cross-env GENERATE_SOURCEMAP=false react-app-rewired build",
+        "deploy":"cross-env GENERATE_SOURCEMAP=false react-app-rewired build && sudo cp -r -f build/* /var/www/html",
         "test": "react-app-rewired test --env=node",
         "eject": "react-app-rewired eject",
         "build-docs": "babel-node --presets @babel/preset-env src/app/main/documentation/material-ui-components/build.js",

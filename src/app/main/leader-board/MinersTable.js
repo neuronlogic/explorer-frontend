@@ -81,6 +81,14 @@ function MinersTable() {
     );
   }
 
+  const sortedData = _.orderBy(
+    data,
+    [(item) => item[order.id] ?? item[order.id]],
+    [order.direction]
+  );
+
+  const displayedData = sortedData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
+
   if (!data.length) {
     return (
       <motion.div
@@ -95,13 +103,7 @@ function MinersTable() {
     );
   }
 
-  const sortedData = _.orderBy(
-    data,
-    [(item) => item[order.id] ?? item[order.id]],
-    [order.direction]
-  );
 
-  const displayedData = sortedData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
   return (
     <>
@@ -118,59 +120,63 @@ function MinersTable() {
                 rowCount={data.length}
               />
               <div className="flex flex-col gap-8">
-                {(displayedData || []).map((item) => (
-                  <CardItem className=""
-                    key={item.uid}>
-                    <div className="flex justify-between items-center">
-                      <Typography className="bg-primary-light inline-block w-60 text-center py-2 text-lg rounded-full">
-                        {item.uid}
-                      </Typography>
-                      <div className="flex item-center gap-4">
-                        <Typography className="text-grey-500">Reward</Typography>
-                        <div className="p-4 md:p-16" align="right">
-                          <i
-                            className={clsx(
-                              'inline-block w-12 h-12 rounded-full mx-8',
-                              item.reward ? 'bg-green' : 'bg-red'
-                            )}
-                          />
+                {(displayedData || []).map((item) => {
+                  return (
+
+                    <CardItem className=""
+                      key={item.uid}>
+                      <div className="flex justify-between items-center">
+                        <Typography className="bg-primary-light inline-block w-60 text-center py-2 text-lg rounded-full">
+                          {item.uid}
+                        </Typography>
+                        <div className="flex item-center gap-4">
+                          <Typography className="text-grey-500">Reward</Typography>
+                          <div className="p-4 md:p-16" align="right">
+                            <i
+                              className={clsx(
+                                'inline-block w-12 h-12 rounded-full mx-8',
+                                item.reward ? 'bg-green' : 'bg-red'
+                              )}
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="flex flex-col gap-4 mt-12">
-                      <div className="flex justify-between items-center">
-                        <Typography className="text-grey-400">Accuracy</Typography>
-                        <Typography className="text-lg font-bold px-8">{item.accuracy}</Typography>
+                      <div className="flex flex-col gap-4 mt-12">
+                        <div className="flex justify-between items-center">
+                          <Typography className="text-grey-400">Accuracy</Typography>
+                          <Typography className="text-lg font-bold px-8">{item.accuracy}</Typography>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <Typography className="text-grey-400">Params</Typography>
+                          <Typography className="text-lg font-bold px-8">
+                            {formatNumber(item.params)}
+                          </Typography>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <Typography className="text-grey-400">Flops</Typography>
+                          <Typography className="text-lg font-bold px-8">
+                            {formatNumber(item.flops)}
+                          </Typography>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <Typography className="text-grey-400">Score</Typography>
+                          <Typography className="text-lg font-bold px-8">
+                            {item?.score.toFixed(5)}
+                          </Typography>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <Typography className="text-grey-400">Block</Typography>
+                          <Typography className="text-lg font-bold px-8">{item.block}</Typography>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <Typography className="text-grey-400">Evaluate Date</Typography>
+                          <Typography className="text-lg font-bold px-8">{item.eval_date}</Typography>
+                        </div>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <Typography className="text-grey-400">Params</Typography>
-                        <Typography className="text-lg font-bold px-8">
-                          {formatNumber(item.params)}
-                        </Typography>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <Typography className="text-grey-400">Flops</Typography>
-                        <Typography className="text-lg font-bold px-8">
-                          {formatNumber(item.flops)}
-                        </Typography>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <Typography className="text-grey-400">Score</Typography>
-                        <Typography className="text-lg font-bold px-8">
-                          {item?.score.toFixed(5)}
-                        </Typography>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <Typography className="text-grey-400">Block</Typography>
-                        <Typography className="text-lg font-bold px-8">{item.block}</Typography>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <Typography className="text-grey-400">Evaluate Date</Typography>
-                        <Typography className="text-lg font-bold px-8">{item.eval_date}</Typography>
-                      </div>
-                    </div>
-                  </CardItem>
-                ))}
+                    </CardItem>
+                  )
+                }
+                )}
               </div>
             </>
           ) : (

@@ -33,7 +33,6 @@ function Layout1(props) {
   const config = useSelector(selectFuseCurrentLayoutConfig);
   const appContext = useContext(AppContext);
   const { routes } = appContext;
-  console.log(config);
 
   return (
     <Root id="fuse-layout" config={config} className="w-full flex">
