@@ -63,15 +63,16 @@ function MinersTable() {
   const siblingCount = isMediumScreen ? 0 : 1;
   const boundaryCount = isSmallScreen ? 0 : 1;
 
-  const simplifiedData = useMemo(() => (
-    {
-      x: data.map(item => item.params),
-      y: data.map(item => item.flops),
-      z: data.map(item => item.accuracy),
-      color: data.map(item => item.pareto ? 'green' : 'red'),
-      uid: data.map(item => item.uid),
-    }
-  ), [data])
+  const simplifiedData = useMemo(
+    () => ({
+      x: data.map((item) => item.params),
+      y: data.map((item) => item.flops),
+      z: data.map((item) => item.accuracy),
+      color: data.map((item) => (item.pareto ? 'green' : 'red')),
+      uid: data.map((item) => item.uid),
+    }),
+    [data]
+  );
 
   if (loading) {
     return (
@@ -103,13 +104,12 @@ function MinersTable() {
     );
   }
 
-
-
   return (
     <>
-      <div className='flex justify-center'>
+      <div className="flex justify-center w-full h-fit">
         <Pareto3dChart data={simplifiedData} />
       </div>
+
       <div className="w-full flex flex-col p-16 md:p-32">
         <FuseScrollbars className="overflow-x-auto">
           {isMobile ? (
@@ -122,9 +122,7 @@ function MinersTable() {
               <div className="flex flex-col gap-8">
                 {(displayedData || []).map((item) => {
                   return (
-
-                    <CardItem className=""
-                      key={item.uid}>
+                    <CardItem className="" key={item.uid}>
                       <div className="flex justify-between items-center">
                         <Typography className="bg-primary-light inline-block w-60 text-center py-2 text-lg rounded-full">
                           {item.uid}
@@ -144,7 +142,9 @@ function MinersTable() {
                       <div className="flex flex-col gap-4 mt-12">
                         <div className="flex justify-between items-center">
                           <Typography className="text-grey-400">Accuracy</Typography>
-                          <Typography className="text-lg font-bold px-8">{item.accuracy}</Typography>
+                          <Typography className="text-lg font-bold px-8">
+                            {item.accuracy}
+                          </Typography>
                         </div>
                         <div className="flex justify-between items-center">
                           <Typography className="text-grey-400">Params</Typography>
@@ -170,13 +170,14 @@ function MinersTable() {
                         </div>
                         <div className="flex justify-between items-center">
                           <Typography className="text-grey-400">Evaluate Date</Typography>
-                          <Typography className="text-lg font-bold px-8">{item.eval_date}</Typography>
+                          <Typography className="text-lg font-bold px-8">
+                            {item.eval_date}
+                          </Typography>
                         </div>
                       </div>
                     </CardItem>
-                  )
-                }
-                )}
+                  );
+                })}
               </div>
             </>
           ) : (

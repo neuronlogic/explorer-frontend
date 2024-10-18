@@ -1,0 +1,19 @@
+/* styles.css or a relevant CSS file */
+
+@media (max-width: 768px) {
+  .plot_control {
+    /* Adjust styles for smaller screens */
+    width: 100%;
+    height: 60vh;
+    /* Example of adjusting height for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .plot_control {
+    /* Adjust styles for very small screens */
+    width: 100%;
+    height: 50vh;
+    /* Example of further reducing height */
+  }
+}

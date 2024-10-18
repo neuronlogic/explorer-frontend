@@ -40,6 +40,7 @@
         "notistack": "1.0.6-next.3",
         "perfect-scrollbar": "1.5.5",
         "plotly.js": "^2.35.2",
+        "plotly.js-basic-dist": "^2.35.2",
         "prismjs": "1.28.0",
         "prop-types": "15.8.1",
         "qs": "6.11.0",
@@ -111,7 +112,7 @@
     "scripts": {
         "start": "PORT=8082 react-app-rewired  start",
         "build": "cross-env GENERATE_SOURCEMAP=false react-app-rewired build",
-        "deploy":"cross-env GENERATE_SOURCEMAP=false react-app-rewired build && sudo cp -r -f build/* /var/www/html",
+        "deploy": "cross-env GENERATE_SOURCEMAP=false react-app-rewired build && sudo cp -r -f build/* /var/www/html",
         "test": "react-app-rewired test --env=node",
         "eject": "react-app-rewired eject",
         "build-docs": "babel-node --presets @babel/preset-env src/app/main/documentation/material-ui-components/build.js",
