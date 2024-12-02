@@ -18,7 +18,6 @@ function ToolbarLayout1(props) {
   const toolbarTheme = useSelector(selectToolbarTheme);
 
   const { validators, selectedValidator, selectValidator } = useValidator();
-  console.log(validators, selectedValidator);
 
   return (
     <ThemeProvider theme={toolbarTheme}>

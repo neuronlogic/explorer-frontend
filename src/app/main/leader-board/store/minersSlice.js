@@ -2,13 +2,12 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 import axios from 'axios';
 import { API_URL } from '../../../configs/envConfig';
 // Define an async thunk to fetch miners' data
-export const getMiners = createAsyncThunk('leaderBoard/getMiners', async () => {
-  const response = await axios.get(`${API_URL}/get-miners/0`);
+export const getMiners = createAsyncThunk('leaderBoard/getMiners', async (validatorId) => {
+  const response = await axios.get(`${API_URL}/get-miners/${validatorId}`);
   return response.data;
 });
 
 const minersAdapter = createEntityAdapter({
-  // Assuming 'uid' is the unique identifier for each miner
   selectId: (miner) => miner.uid,
 });
 
@@ -26,9 +25,14 @@ const minersSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getMiners.fulfilled, (state, action) => {
-      minersAdapter.setAll(state, action.payload);
-    });
+    builder
+      .addCase(getMiners.fulfilled, (state, action) => {
+        minersAdapter.setAll(state, action.payload);
+      })
+      .addCase(getMiners.rejected, (state, action) => {
+        // If the request fails, set the miners to an empty array
+        minersAdapter.setAll(state, []);
+      });
   },
 });
 

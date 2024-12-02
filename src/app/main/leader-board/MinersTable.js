@@ -18,6 +18,8 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CardItem from 'src/app/components/ui/CardItem';
 import { getMiners, selectMiners, selectMinersSearchText } from './store/minersSlice';
+import { useValidator } from '../../contexts/ValidatorProvider';
+// import { useValidator } from '../../contexts/ValidatorProvider';
 import MinersTableHeader from './MinersTableHeader';
 import Pareto3dChart from './Pareto3dChart';
 
@@ -29,6 +31,7 @@ function MinersTable() {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const dispatch = useDispatch();
   const miners = useSelector(selectMiners);
+  const { selectedValidator } = useValidator();
   const searchText = useSelector(selectMinersSearchText);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -39,8 +42,8 @@ function MinersTable() {
   const pageCount = Math.ceil(data.length / rowsPerPage);
 
   useEffect(() => {
-    dispatch(getMiners()).then(() => setLoading(false));
-  }, [dispatch]);
+    dispatch(getMiners(selectedValidator)).then(() => setLoading(false));
+  }, [dispatch, selectedValidator]);
 
   useEffect(() => {
     const filteredData = searchText.length
@@ -49,7 +52,7 @@ function MinersTable() {
         )
       : miners;
     setData(filteredData);
-    setPage(1); // Reset page to 1 when data changes
+    setPage(1);
   }, [miners, searchText]);
 
   const handleRequestSort = (event, property) => {
