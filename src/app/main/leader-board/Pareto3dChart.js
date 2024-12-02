@@ -11,8 +11,8 @@ const Pareto3dChart = ({ data }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <div className='flex justify-center items-center w-full h-full'>
-      <div className='h-[60vh] max-width:[480px]:h-[50vh]'>
+    <div className="flex justify-center items-center w-full h-full">
+      <div className="h-[60vh] max-width:[480px]:h-[50vh]">
         <Plot
           data={[
             {
@@ -39,7 +39,12 @@ const Pareto3dChart = ({ data }) => {
             scene: {
               xaxis: { title: 'Params', color: '#ffffff', gridcolor: '#444', tickcolor: '#ffffff' },
               yaxis: { title: 'Flops', color: '#ffffff', gridcolor: '#444', tickcolor: '#ffffff' },
-              zaxis: { title: 'Accuracy', color: '#ffffff', gridcolor: '#444', tickcolor: '#ffffff' },
+              zaxis: {
+                title: 'Accuracy',
+                color: '#ffffff',
+                gridcolor: '#444',
+                tickcolor: '#ffffff',
+              },
               bgcolor: '#151c2b',
             },
             paper_bgcolor: '#111827',
@@ -49,7 +54,7 @@ const Pareto3dChart = ({ data }) => {
           }}
           config={{
             displaylogo: false,
-            displayModeBar: !isMobile ,
+            displayModeBar: !isMobile,
           }}
           useResizeHandler
           style={{ width: '100%', height: '100%' }} // Make the plot responsive
@@ -61,4 +66,3 @@ const Pareto3dChart = ({ data }) => {
 };
 
 export default Pareto3dChart;
-

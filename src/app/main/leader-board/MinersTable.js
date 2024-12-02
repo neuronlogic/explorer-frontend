@@ -45,8 +45,8 @@ function MinersTable() {
   useEffect(() => {
     const filteredData = searchText.length
       ? _.filter(miners, (item) =>
-        item.uid.toString().toLowerCase().includes(searchText.toLowerCase())
-      )
+          item.uid.toString().toLowerCase().includes(searchText.toLowerCase())
+        )
       : miners;
     setData(filteredData);
     setPage(1); // Reset page to 1 when data changes
@@ -124,10 +124,12 @@ function MinersTable() {
                   return (
                     <CardItem className="" key={item.uid}>
                       <div className="flex justify-between items-center">
-                        <Typography className="bg-primary-light hover:bg-primary inline-block w-60 text-center py-2 text-lg rounded-full"
+                        <Typography
+                          className="bg-primary-light hover:bg-primary inline-block w-60 text-center py-2 text-lg rounded-full"
                           onClick={() =>
                             window.open(`https://huggingface.co/${item?.hf_account}`, '_blank')
-                          }>
+                          }
+                        >
                           {item.uid}
                         </Typography>
                         <div className="flex item-center gap-4">

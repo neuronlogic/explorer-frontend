@@ -1,9 +1,9 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-
+import { API_URL } from '../../../configs/envConfig';
 // Define an async thunk to fetch miners' data
 export const getMiners = createAsyncThunk('leaderBoard/getMiners', async () => {
-  const response = await axios.get(`${process.env.REACT_APP_API_URL}/get-miners`);
+  const response = await axios.get(`${API_URL}/get-miners/0`);
   return response.data;
 });
 
