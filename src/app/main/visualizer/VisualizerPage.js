@@ -18,17 +18,17 @@ const Root = styled(FusePageSimple)(({ theme }) => ({
 
 function VisualizerPage(props) {
   const iframeRef = useRef(null);
-  const { selectedValidator } = useValidator();
+  const { selectedValidator, dataset } = useValidator();
 
   const sendMessageToIframe = () => {
     if (iframeRef.current) {
-      iframeRef.current.contentWindow.postMessage(selectedValidator, '*');
+      iframeRef.current.contentWindow.postMessage({selectedValidator, dataset}, '*')
     }
   };
 
   useEffect(() => {
     sendMessageToIframe();
-  }, [selectedValidator]);
+  }, [selectedValidator, dataset]);
 
   return (
     <Root

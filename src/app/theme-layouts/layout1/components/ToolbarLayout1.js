@@ -17,7 +17,7 @@ function ToolbarLayout1(props) {
   const navbar = useSelector(selectFuseNavbar);
   const toolbarTheme = useSelector(selectToolbarTheme);
 
-  const { validators, selectedValidator, selectValidator } = useValidator();
+  const { validators, selectedValidator, dataset, selectValidator, selectDataset } = useValidator();
 
   return (
     <ThemeProvider theme={toolbarTheme}>
@@ -51,22 +51,42 @@ function ToolbarLayout1(props) {
           {/* <div className="flex items-center px-8 h-full overflow-x-auto">
             <FullScreenToggle />
           </div> */}
-          <FormControl className=" w-[150px] py-0">
-            <InputLabel id="validator-select-label">Validator</InputLabel>
-            <Select
-              labelId="validator-select-label"
-              label="Validator"
-              value={selectedValidator}
-              onChange={(e) => selectValidator(e.target.value)}
-              id="validator-select"
-            >
-              {validators.map((item) => (
-                <MenuItem value={item.id} key={item.id}>
-                  {item.name} {item.id === 0 && '(default)'}
+          <div className="flex items-center gap-10">
+            <FormControl className=" w-[150px] py-0">
+              <InputLabel id="dataset-select-label">Dataset</InputLabel>
+              <Select
+                labelId="dataset-select-label"
+                label="Dataset"
+                value={dataset}
+                onChange={(e) => selectDataset(e.target.value)}
+                id="dataset-select"
+              >
+                <MenuItem value="current" key="current">
+                  CIFAR-100
                 </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+                <MenuItem value="archived" key="archived">
+                  CIFAR-10 (Archived)
+                </MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl className=" w-[150px] py-0">
+              <InputLabel id="validator-select-label">Validator</InputLabel>
+              <Select
+                labelId="validator-select-label"
+                label="Validator"
+                value={selectedValidator}
+                onChange={(e) => selectValidator(e.target.value)}
+                id="validator-select"
+              >
+                {validators.map((item) => (
+                  <MenuItem value={item.id} key={item.id}>
+                    {item.name} {item.id === 0 && '(default)'}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+
           {config.navbar.display && config.navbar.position === 'right' && (
             <>
               <Hidden lgDown>

@@ -19,7 +19,6 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import CardItem from 'src/app/components/ui/CardItem';
 import { getMiners, selectMiners, selectMinersSearchText } from './store/minersSlice';
 import { useValidator } from '../../contexts/ValidatorProvider';
-// import { useValidator } from '../../contexts/ValidatorProvider';
 import MinersTableHeader from './MinersTableHeader';
 import Pareto3dChart from './Pareto3dChart';
 
