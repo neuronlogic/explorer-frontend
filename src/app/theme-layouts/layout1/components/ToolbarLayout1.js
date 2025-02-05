@@ -2,13 +2,12 @@ import { ThemeProvider } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Hidden from '@mui/material/Hidden';
 import Toolbar from '@mui/material/Toolbar';
-import { FormControl, Select, MenuItem, InputLabel } from '@mui/material';
 import clsx from 'clsx';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectFuseCurrentLayoutConfig, selectToolbarTheme } from 'app/store/fuse/settingsSlice';
+import ValidatorSetting from 'app/theme-layouts/shared-components/ValidatorSetting';
 import { selectFuseNavbar } from 'app/store/fuse/navbarSlice';
-import { useValidator } from '../../../contexts/ValidatorProvider';
 import NavbarToggleButton from '../../shared-components/NavbarToggleButton';
 // import FullScreenToggle from '../../shared-components/FullScreenToggle';
 
@@ -16,8 +15,6 @@ function ToolbarLayout1(props) {
   const config = useSelector(selectFuseCurrentLayoutConfig);
   const navbar = useSelector(selectFuseNavbar);
   const toolbarTheme = useSelector(selectToolbarTheme);
-
-  const { validators, selectedValidator, dataset, selectValidator, selectDataset } = useValidator();
 
   return (
     <ThemeProvider theme={toolbarTheme}>
@@ -48,44 +45,8 @@ function ToolbarLayout1(props) {
               NASChain Explorer
             </p>
           </div>
-          {/* <div className="flex items-center px-8 h-full overflow-x-auto">
-            <FullScreenToggle />
-          </div> */}
-          <div className="flex items-center gap-10">
-            <FormControl className=" w-[150px] py-0">
-              <InputLabel id="dataset-select-label">Dataset</InputLabel>
-              <Select
-                labelId="dataset-select-label"
-                label="Dataset"
-                value={dataset}
-                onChange={(e) => selectDataset(e.target.value)}
-                id="dataset-select"
-              >
-                <MenuItem value="current" key="current">
-                  CIFAR-100
-                </MenuItem>
-                <MenuItem value="archived" key="archived">
-                  CIFAR-10 (Archived)
-                </MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl className=" w-[150px] py-0">
-              <InputLabel id="validator-select-label">Validator</InputLabel>
-              <Select
-                labelId="validator-select-label"
-                label="Validator"
-                value={selectedValidator}
-                onChange={(e) => selectValidator(e.target.value)}
-                id="validator-select"
-              >
-                {validators.map((item) => (
-                  <MenuItem value={item.id} key={item.id}>
-                    {item.name} {item.id === 0 && '(default)'}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
+
+          <ValidatorSetting />
 
           {config.navbar.display && config.navbar.position === 'right' && (
             <>

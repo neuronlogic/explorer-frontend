@@ -5,13 +5,14 @@ import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
 import { showMessage } from 'app/store/fuse/messageSlice';
 import axios from 'axios'; // Assuming you're using axios for HTTP requests
 import { API_URL } from 'app/configs/envConfig';
+import { setMiner } from '../main/visualizer/store/minersSlice';
 
 const ValidatorContext = React.createContext();
 
 function ValidatorProvider({ children }) {
   const [validators, setValidators] = useState([]);
-  const [selectedValidator, setSelectedValidator] = useState(() =>
-    parseInt(localStorage.getItem('validatorId'), 10) || 0
+  const [selectedValidator, setSelectedValidator] = useState(
+    () => parseInt(localStorage.getItem('validatorId'), 10) || 0
   );
   const [waitFetch, setWaitFetch] = useState(true);
   const dispatch = useDispatch();
@@ -23,12 +24,13 @@ function ValidatorProvider({ children }) {
       .get(`${API_URL}/get-validator?status=${dataset}`)
       .then((response) => {
         setValidators(response.data);
-        setWaitFetch(false);
+        dispatch(setMiner(''));
       })
       .catch((error) => {
         dispatch(showMessage({ message: `Failed to fetch validators: ${error.message}` }));
-        setWaitFetch(false);
-      });
+        dispatch(setMiner(''));
+      })
+      .finally(() => setWaitFetch(false));
   }, [dispatch, dataset]);
 
   const selectValidator = (validatorId) => {
@@ -44,7 +46,9 @@ function ValidatorProvider({ children }) {
   return waitFetch ? (
     <FuseSplashScreen />
   ) : (
-    <ValidatorContext.Provider value={{ validators, selectedValidator, dataset, selectValidator, selectDataset }}>
+    <ValidatorContext.Provider
+      value={{ validators, selectedValidator, dataset, selectValidator, selectDataset }}
+    >
       {children}
     </ValidatorContext.Provider>
   );

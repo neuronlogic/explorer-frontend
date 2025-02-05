@@ -1,7 +1,13 @@
-import { useRef, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
+import { useState, useEffect } from 'react';
+import withReducer from 'app/store/withReducer';
+import { styled, useTheme } from '@mui/material/styles';
+import { IconButton, Hidden } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import FusePageSimple from '@fuse/core/FusePageSimple';
-import { useValidator } from 'src/app/contexts/ValidatorProvider';
+import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
+import reducer from './store';
+import ModelViewer from './ModelViewer';
+import MinerControl from './MinerControl';
 
 const Root = styled(FusePageSimple)(({ theme }) => ({
   '& .FusePageSimple-header': {
@@ -17,29 +23,43 @@ const Root = styled(FusePageSimple)(({ theme }) => ({
 }));
 
 function VisualizerPage(props) {
-  const iframeRef = useRef(null);
-  const { selectedValidator, dataset } = useValidator();
+  const theme = useTheme();
 
-  const sendMessageToIframe = () => {
-    if (iframeRef.current) {
-      iframeRef.current.contentWindow.postMessage({selectedValidator, dataset}, '*')
-    }
-  };
+  const isPc = useMediaQuery(theme.breakpoints.up('lg'));
 
   useEffect(() => {
-    sendMessageToIframe();
-  }, [selectedValidator, dataset]);
+    if (isPc) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  }, [isPc]);
+
+  const [show, setShow] = useState(false);
 
   return (
     <Root
       content={
-        <div className="w-full h-full">
-          <iframe
-            ref={iframeRef}
-            src={process.env.REACT_APP_MODEL_VIEWER}
-            style={{ width: '100%', height: '100%', border: 'none' }}
-            title="Model Visualizer"
-          />
+        <div className="w-full h-full flex">
+          <Hidden lgUp>
+            <IconButton
+              sx={{
+                position: 'absolute',
+                top: 40,
+                left: 10,
+                zIndex: 50,
+              }}
+              color="inherit"
+              size="small"
+              onClick={() => setShow(!show)}
+            >
+              <FuseSvgIcon size={20} color="action">
+                heroicons-outline:globe-alt
+              </FuseSvgIcon>
+            </IconButton>
+          </Hidden>
+          <MinerControl show={show} />
+          <ModelViewer />
         </div>
       }
       scroll="content"
@@ -47,4 +67,4 @@ function VisualizerPage(props) {
   );
 }
 
-export default VisualizerPage;
+export default withReducer('visualizer', reducer)(VisualizerPage);

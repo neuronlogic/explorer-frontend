@@ -66,7 +66,6 @@ function FuseNavHorizontalItem(props) {
     ),
     [
       item.badge,
-      item.exact,
       item.sx,
       item.active,
       item.disabled,

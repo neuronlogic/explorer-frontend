@@ -30,7 +30,7 @@ function MinersTable() {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const dispatch = useDispatch();
   const miners = useSelector(selectMiners);
-  const { selectedValidator } = useValidator();
+  const { selectedValidator, dataset } = useValidator();
   const searchText = useSelector(selectMinersSearchText);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -41,8 +41,8 @@ function MinersTable() {
   const pageCount = Math.ceil(data.length / rowsPerPage);
 
   useEffect(() => {
-    dispatch(getMiners(selectedValidator)).then(() => setLoading(false));
-  }, [dispatch, selectedValidator]);
+    dispatch(getMiners({ selectedValidator, dataset })).then(() => setLoading(false));
+  }, [dispatch, selectedValidator, dataset]);
 
   useEffect(() => {
     const filteredData = searchText.length

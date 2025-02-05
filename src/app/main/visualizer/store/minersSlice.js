@@ -2,6 +2,7 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/too
 import axios from 'axios';
 import { API_URL } from '../../../configs/envConfig';
 // Define an async thunk to fetch miners' data
+
 export const getMiners = createAsyncThunk(
   'leaderBoard/getMiners',
   async ({ selectedValidator, dataset }) => {
@@ -16,17 +17,16 @@ const minersAdapter = createEntityAdapter({
   selectId: (miner) => miner.uid,
 });
 
-const minersSlice = createSlice({
-  name: 'leaderBoard',
+const miners = createSlice({
+  name: 'visualizer',
   initialState: minersAdapter.getInitialState({
-    searchText: '',
+    miner: null,
   }),
   reducers: {
-    setMinersSearchText: {
+    setMiner: {
       reducer: (state, action) => {
-        state.searchText = action.payload;
+        state.miner = action.payload;
       },
-      prepare: (event) => ({ payload: event.target.value || '' }),
     },
   },
   extraReducers: (builder) => {
@@ -35,18 +35,17 @@ const minersSlice = createSlice({
         minersAdapter.setAll(state, action.payload);
       })
       .addCase(getMiners.rejected, (state, action) => {
-        // If the request fails, set the miners to an empty array
         minersAdapter.setAll(state, []);
       });
   },
 });
 
-export const { setMinersSearchText } = minersSlice.actions;
+export const { setMiner } = miners.actions;
 
 export const { selectAll: selectMiners } = minersAdapter.getSelectors(
-  (state) => state.leaderBoard.miners // Ensure this matches your slice name
+  (state) => state.visualizer.miners // Ensure this matches your slice name
 );
 
-export const selectMinersSearchText = ({ leaderBoard }) => leaderBoard.miners.searchText;
+export const selectMiner = ({ visualizer }) => visualizer.miners.miner;
 
-export default minersSlice.reducer;
+export default miners.reducer;

@@ -21,9 +21,10 @@ function FuseShortcuts(props) {
   const [addMenu, setAddMenu] = useState(null);
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState(null);
-  const shortcutItems = shortcuts
-    ? shortcuts.map((id) => navigation.find((item) => item.id === id))
-    : [];
+
+  const shortcutItems = useMemo(() => {
+    return shortcuts ? shortcuts.map((id) => navigation.find((item) => item.id === id)) : [];
+  }, [shortcuts, navigation]);
 
   function addMenuClick(event) {
     setAddMenu(event.currentTarget);
